@@ -53,7 +53,7 @@ const SideBar = () => {
        <Box sx={{ mx: 'auto', mt: 10, mb: 1 }}>
           <Tooltip title="John Smith">
             <Avatar
-              src="https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png"
+              src="/user.png"
               sx={{
                 width: {xl: 100, xs: 50},
                 height: {xl: 100, xs: 50}

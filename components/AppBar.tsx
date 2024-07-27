@@ -19,16 +19,16 @@ useEffect(() => {
 
   return (
     <>
-      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+      <AppBar position="fixed" sx={{zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <Toolbar>    
             <Image
-              src='/car4.png'
+              src='/carwheel.png'
               alt='logo'
-              width={70}
-              height={70}
+              width={40}
+              height={40}
               className='object-contain'
             />
-            <Typography variant="h6" noWrap component="div" sx={{flexGrow: 1, ml: .5}}>
+            <Typography variant="h6" noWrap component="div" sx={{flexGrow: 1, ml: 1.5}}>
               CAR SEARCHER
             </Typography>
             <Divider orientation="vertical" />

@@ -1,18 +1,23 @@
 "use client"
 
-import { createContext, useContext, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 import { useLocalStorage } from "../hooks";
 import { ThemeContextShape } from "@/types";
 
 export const ThemeContext = createContext<ThemeContextShape | null>(null);
 
 export default function ThemeContextProvider({ children }: {children: React.ReactNode}) {
-    const { getItem } = useLocalStorage('value');
 
-    const savedMode: boolean = getItem();
-    const [dark, setDark] = useState<boolean>(savedMode ?? false);
+    const [dark, setDark] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
 
+    const { getItem } = useLocalStorage('value');
+    const savedMode: boolean = getItem();
+    console.log(savedMode);
+
+    useEffect(() => {
+      setDark(savedMode);
+    }, []);
  
     return (
         <ThemeContext.Provider
