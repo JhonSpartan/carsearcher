@@ -4,7 +4,7 @@ import { carProps, filterItemsFull } from '@/types'
 import { Table, TableCell, TableHead, TablePagination, TableRow, TableSortLabel } from '@mui/material'
 import React, { useState } from 'react'
 
-const CarsTableNew = (headCells: { id: string, label: string }[], filterFn: any) => {
+const CarsTable = (headCells: { id: string, label: string }[], filterFn: any) => {
 
   const pages = [5, 10, 20]
   const [page, setPage] = useState<number>(0);
@@ -117,4 +117,4 @@ const CarsTableNew = (headCells: { id: string, label: string }[], filterFn: any)
   }
 }
 
-export default CarsTableNew
+export default CarsTable

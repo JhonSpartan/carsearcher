@@ -1,7 +1,7 @@
 "use client"
 
 import "./globals.css";
-import AppBar from "@/components/AppBar";
+import TopBAr from "@/components/TopBar";
 import SideBar from "@/components/SideBar";
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
 import ThemeRegistry from "./ThemeRegistry";
@@ -31,7 +31,7 @@ export default function RootLayout({
           <QueryClientProvider client={queryClient}>
             <ThemeRegistry options={{ key: 'mui' }}>
               <LayoutWrapper>
-                <AppBar />
+                <TopBAr />
                 <SideBar/>
                 {children}
               </LayoutWrapper>

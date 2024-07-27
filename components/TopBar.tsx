@@ -7,7 +7,7 @@ import { useThemeContext } from '@/libs/contexts/context';
 import { useLocalStorage } from '@/libs/hooks';
 import { useEffect } from 'react';
 
-const MainPage = () => {
+const TopBar = () => {
 
 const { dark, setDark } = useThemeContext();
 
@@ -41,4 +41,4 @@ useEffect(() => {
   );
 }
 
-export default MainPage
+export default TopBar

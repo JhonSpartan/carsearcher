@@ -9,7 +9,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import DeleteIcon from '@mui/icons-material/Delete';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import { TableCell, TableRow, TableBody } from "@mui/material";
-import CarsTableNew from '@/components/CarsTableNew';
 import AddForm from '@/components/form/AddForm';
 import EditCar from '@/components/EditCar';
 import Notification from '@/components/Notification';
@@ -17,6 +16,7 @@ import ConfirmDialog from '@/components/ConfirmDialog';
 import { carProps, DialogConformation, NotifyData } from '@/types';
 import { useThemeContext } from '@/libs/contexts/context';
 import { headCells } from '@/constants';
+import CarsTable from '@/components/CarsTable';
 
 
 const searchedCars = () => {
@@ -36,7 +36,7 @@ const searchedCars = () => {
     TblHead,
     TblPagination,
     carsAfterPagingAndSorting,
-  } = CarsTableNew(headCells, filterFn);
+  } = CarsTable(headCells, filterFn);
 
   const handleSearch = (e:React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     let target = e.target;
@@ -72,7 +72,6 @@ const searchedCars = () => {
     });
   } 
 
-
   const {isLoading, data} = useCars();
 
   if (isLoading) return (
@@ -82,7 +81,6 @@ const searchedCars = () => {
     </div>
   )
   const cars: carProps[] = data.cars
-
 
   return (
     <>
