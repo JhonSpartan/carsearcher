@@ -1,10 +1,9 @@
 import { addUserEmailToProduct, scrapeAndCompareCar } from '@/libs/actions';
 import { useThemeContext } from '@/libs/contexts/context';
 import { useCreateSearchResults, useSearchOptions, useUpdateSearchOptions, useCreateGraphData } from '@/libs/hooks';
-import Car from '@/libs/models/car.model';
 import SearchOptions from '@/libs/models/searchOptions.model';
 import { connectToDB } from '@/libs/mongoose';
-import { NotifyData, Options, OptionsShape, SearchResult, SearchResults } from '@/types';
+import { Options, SearchResult, SearchResults } from '@/types';
 
 
 export async function GET() {
@@ -38,7 +37,7 @@ export async function GET() {
 
     
 
-    const { loading, setLoading, notify, setNotify } = useThemeContext();
+    const { loading, setLoading, setNotify } = useThemeContext();
 
 
   const updateSearchOptionMutation = useUpdateSearchOptions();

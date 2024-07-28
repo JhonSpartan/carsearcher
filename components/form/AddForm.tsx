@@ -1,12 +1,15 @@
 import { carDrives, carTypes, doorsCounts, fuels, generations, manufacturers, manufacturersAndModels, placesCounts, transmissions, yearsOfProduction } from '@/constants';
+import { useThemeContext } from '@/libs/contexts/context';
 import { useCreateCar } from '@/libs/hooks';
-import { carProps, NotifyData } from '@/types';
+import { carProps} from '@/types';
 import { Autocomplete, Box, Button, FormControl, FormControlLabel, FormLabel, Grid, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField } from '@mui/material';
 import { useEffect, useState } from 'react'
 
-const AddForm = (props: {setOpenPopup: React.Dispatch<React.SetStateAction<boolean>>, setNotify: React.Dispatch<React.SetStateAction<NotifyData>>}) => {
+const AddForm = (props: {setOpenPopup: React.Dispatch<React.SetStateAction<boolean>>}) => {
 
-  const  { setOpenPopup, setNotify } = props;
+  const  { setOpenPopup } = props;
+
+  const { setNotify } = useThemeContext();
 
   const [models, setModels] = useState(['No manufacturer chosen']);
   const [manufacturer, setManuFacturer] = useState<string>('');

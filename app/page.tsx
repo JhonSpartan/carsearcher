@@ -20,10 +20,7 @@ import { Options } from '@/types'
 
 const page = () => {
 
-  // const [notify, setNotify] = useState({isOpen: false, message: '', type: ''});
-
   const { isLoading, error, data} = useSearchOptions();
-
 
   if (isLoading) return (
     <div>
@@ -182,8 +179,6 @@ const page = () => {
               <ListItem sx={{gridRow: {xl: 'unset', tablet: 2, mobile: 3, xs: 'unset'}, gridColumn: {xl: 'unset', tablet: '1/4', mobile: '1/3', xs: 'unset'}}}>
                 <SearchButton 
                   options={options}
-                  // setNotify={setNotify}
-                  // notify={notify}
                 />
               </ListItem>
             </List>
@@ -199,10 +194,7 @@ const page = () => {
           <Chart />       
         </Paper>
       </Box>
-      <Notification
-        // notify={notify}
-        // setNotify={setNotify}
-    />
+      <Notification/>
     </Box>
   )
 }

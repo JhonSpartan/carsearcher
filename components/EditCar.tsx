@@ -1,11 +1,13 @@
 import EditForm from "./form/EditForm";
 import { useGetCar } from "@/libs/hooks";
 import { LinearProgress } from "@mui/material";
-import { NotifyData } from "@/types";
+import { useThemeContext } from "@/libs/contexts/context";
 
-const EditCar = (props: {setOpenPopup: React.Dispatch<React.SetStateAction<boolean>>, id: string, setNotify: React.Dispatch<React.SetStateAction<NotifyData>>}) => {
+const EditCar = (props: {setOpenPopup: React.Dispatch<React.SetStateAction<boolean>>, id: string}) => {
 
-  const  { setOpenPopup, id, setNotify } = props;
+  const  { setOpenPopup, id } = props;
+
+  const { setNotify } = useThemeContext();
 
   const { status, isFetching, error, data} = useGetCar(id);
 

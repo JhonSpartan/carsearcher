@@ -11,14 +11,17 @@ import Notification from '@/components/Notification';
 import FiberNewIcon from '@mui/icons-material/FiberNew';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import {  DialogConformation, GetSearchResults, SearchResult } from '@/types';
+import { useThemeContext } from '@/libs/contexts/context';
 
 
 
 const messages = () => {
 
   const [confirmDialog, setConfirmDialog] = useState<DialogConformation>({isOpen: false, title: '', subTitle: '', onConfirm: () => {handleDeleteSearchResult('')}});
-  const [notify, setNotify] = useState({isOpen: false, message: '', type: ''});
   const [expanded, setExpanded] = useState<string | false>('');
+
+  const { setNotify } = useThemeContext();
+
 
   const { isLoading, error, data} = useGetSearchResults();
   const deleteCarMutation = useDeleteSearchResult(setNotify);
@@ -245,10 +248,7 @@ const messages = () => {
           </Accordion>
         ))}
       </Container>
-      <Notification
-        notify={notify}
-        setNotify={setNotify}
-      />
+      <Notification/>
       <ConfirmDialog confirmDialog={confirmDialog} setConfirmDialog={setConfirmDialog} />
     </>
   )

@@ -24,12 +24,10 @@ const searchedCars = () => {
   const [openPopup, setOpenPopup] = useState<boolean>(false);
   const [form, setForm] = useState<string>('');
   const [id, setId] = useState<string>('');
-  const [notify, setNotify] = useState<NotifyData>({isOpen: false, message: '', type: ''});
   const [confirmDialog, setConfirmDialog] = useState<DialogConformation>({isOpen: false, title: '', subTitle: '', onConfirm: () => {handleDeleteCar('')}});
   const [shrink, setShrink] = useState<boolean>(false);
 
-  const { dark } = useThemeContext();
-  
+  const { dark, setNotify } = useThemeContext();
 
   const {
     TblContainer,
@@ -223,14 +221,11 @@ const searchedCars = () => {
       >   
         {
           form==='addForm' ? 
-          <AddForm setOpenPopup={setOpenPopup} setNotify={setNotify} /> : 
-          <EditCar id={id} setOpenPopup={setOpenPopup} setNotify={setNotify}  />
+          <AddForm setOpenPopup={setOpenPopup} /> : 
+          <EditCar id={id} setOpenPopup={setOpenPopup} />
         }
       </Popup>
-      <Notification
-        // notify={notify}
-        // setNotify={setNotify}
-      />
+      <Notification/>
       <ConfirmDialog confirmDialog={confirmDialog} setConfirmDialog={setConfirmDialog} />
     </>
 
