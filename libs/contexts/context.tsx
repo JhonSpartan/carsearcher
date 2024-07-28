@@ -13,8 +13,7 @@ export default function ThemeContextProvider({ children }: {children: React.Reac
 
     const { getItem } = useLocalStorage('value');
     const savedMode: boolean = getItem();
-    console.log(savedMode);
-
+  
     useEffect(() => {
       setDark(savedMode);
     }, []);
