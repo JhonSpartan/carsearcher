@@ -228,8 +228,8 @@ const searchedCars = () => {
         }
       </Popup>
       <Notification
-        notify={notify}
-        setNotify={setNotify}
+        // notify={notify}
+        // setNotify={setNotify}
       />
       <ConfirmDialog confirmDialog={confirmDialog} setConfirmDialog={setConfirmDialog} />
     </>

@@ -1,35 +1,45 @@
 import { addUserEmailToProduct, scrapeAndCompareCar } from '@/libs/actions';
 import { useThemeContext } from '@/libs/contexts/context';
 import { useCreateSearchResults, useSearchOptions, useUpdateSearchOptions, useCreateGraphData } from '@/libs/hooks';
-import { NotifyData, Options, SearchResult, SearchResults } from '@/types';
+import Car from '@/libs/models/car.model';
+import SearchOptions from '@/libs/models/searchOptions.model';
+import { connectToDB } from '@/libs/mongoose';
+import { NotifyData, Options, OptionsShape, SearchResult, SearchResults } from '@/types';
 
 
-
-const isValidOtomotoCarURL = (url: string) => {
+export async function GET() {
   try {
-    const parsedURL = new URL(url);
-    const hostname = parsedURL.hostname;
-
-    if(
-      hostname.includes('otomoto.pl') || 
-      hostname.includes ('otomoto.') || 
-      hostname.endsWith('otomoto')
-    ) {
-      return true;
+    const isValidOtomotoCarURL = (url: string) => {
+      try {
+        const parsedURL = new URL(url);
+        const hostname = parsedURL.hostname;
+    
+        if(
+          hostname.includes('otomoto.pl') || 
+          hostname.includes ('otomoto.') || 
+          hostname.endsWith('otomoto')
+        ) {
+          return true;
+        }
+      } catch (error) {
+        return false;
+      }
+    
+      return false;
     }
-  } catch (error) {
-    return false;
-  }
 
-  return false;
-}
+    await connectToDB();
 
-const SearchButton = async ({options, setNotify, notify}: {options: Options, setNotify: React.Dispatch<React.SetStateAction<NotifyData>>, notify: NotifyData}) => {
+    const searchOptionsArray = await SearchOptions.find({});
+    if(!searchOptionsArray) throw new Error("No cars found in data base");
+    
+    const options: Options = searchOptionsArray[0];
+    const { email } = options;
 
-  const { loading, setLoading } = useThemeContext();
+    
 
-  const { data } = useSearchOptions();
-  const { email } = data;
+    const { loading, setLoading, notify, setNotify } = useThemeContext();
+
 
   const updateSearchOptionMutation = useUpdateSearchOptions();
 
@@ -102,9 +112,11 @@ const SearchButton = async ({options, setNotify, notify}: {options: Options, set
     if (maxTime) {
       updateSearchOptionMutation.mutate({...options, date: maxTime})
     }
- 
-
-  
+    
+  } catch (error) {
+    throw new Error(`Error in GET: ${error}`);
+  } 
 }
 
-export default SearchButton
+
+

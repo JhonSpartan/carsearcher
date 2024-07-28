@@ -27,9 +27,12 @@ const isValidOtomotoCarURL = (url: string) => {
   return false;
 }
 
-const SearchButton = ({options, setNotify, notify}: {options: Options, setNotify: React.Dispatch<React.SetStateAction<NotifyData>>, notify: NotifyData}) => {
+// const SearchButton = ({options, setNotify, notify}: {options: Options, setNotify: React.Dispatch<React.SetStateAction<NotifyData>>, notify: NotifyData}) => {
+const SearchButton = (props: {options: Options}) => {
 
-  const { loading, setLoading } = useThemeContext();
+  const { options } = props;
+
+  const { loading, setLoading, setNotify, notify } = useThemeContext();
 
   const { data } = useSearchOptions();
   const { email } = data;
@@ -54,7 +57,7 @@ const SearchButton = ({options, setNotify, notify}: {options: Options, setNotify
 
       if(!isValidLink) return alert('Please provide a valid Otomoto link')
 
-      try {
+      try { 
         setLoading(true);
 
         const filteredCars: any = await scrapeAndCompareCar(`https://www.otomoto.pl/osobowe?page=${i}`);
@@ -121,8 +124,8 @@ const SearchButton = ({options, setNotify, notify}: {options: Options, setNotify
         {loading ? <Box sx={{display: 'flex', alignItems: 'center'}}><CircularProgress size="1rem" sx={{mr: 2, color: '#ffffff'}} /> <Typography>Searching...</Typography></Box> : <Typography>Search</Typography>}
       </Button> 
       <Notification
-      notify={notify}
-      setNotify={setNotify}
+      // notify={notify}
+      // setNotify={setNotify}
     />
   </>
   )

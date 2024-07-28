@@ -20,7 +20,7 @@ import { Options } from '@/types'
 
 const page = () => {
 
-  const [notify, setNotify] = useState({isOpen: false, message: '', type: ''});
+  // const [notify, setNotify] = useState({isOpen: false, message: '', type: ''});
 
   const { isLoading, error, data} = useSearchOptions();
 
@@ -181,9 +181,9 @@ const page = () => {
               <Divider sx={{display: {xl: 'block', mobile: 'none', xs: 'block'}}}/>
               <ListItem sx={{gridRow: {xl: 'unset', tablet: 2, mobile: 3, xs: 'unset'}, gridColumn: {xl: 'unset', tablet: '1/4', mobile: '1/3', xs: 'unset'}}}>
                 <SearchButton 
-                  options={data}
-                  setNotify={setNotify}
-                  notify={notify}
+                  options={options}
+                  // setNotify={setNotify}
+                  // notify={notify}
                 />
               </ListItem>
             </List>
@@ -200,8 +200,8 @@ const page = () => {
         </Paper>
       </Box>
       <Notification
-        notify={notify}
-        setNotify={setNotify}
+        // notify={notify}
+        // setNotify={setNotify}
     />
     </Box>
   )

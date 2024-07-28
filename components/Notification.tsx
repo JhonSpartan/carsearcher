@@ -1,9 +1,14 @@
 import { Alert, IconButton, Snackbar } from "@mui/material"
 import CloseIcon from '@mui/icons-material/Close';
 import { NotifyData } from "@/types";
+import { useThemeContext } from "@/libs/contexts/context";
 
 
-const Notification = ({ notify, setNotify }: {notify: NotifyData, setNotify: React.Dispatch<React.SetStateAction<NotifyData>>}) => {
+// const Notification = ({ notify, setNotify }: {notify: NotifyData, setNotify: React.Dispatch<React.SetStateAction<NotifyData>>}) => {
+const Notification = () => {
+
+  const { notify, setNotify } = useThemeContext();
+
 
   const handleClose = (event: React.SyntheticEvent | Event, reason: string) => {
     if ( reason === 'clickaway') {

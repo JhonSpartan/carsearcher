@@ -30,12 +30,6 @@ export type OptionsShape = {
   options: Options
 }
 
-export type ThemeContextShape = {
-  dark: boolean;
-  setDark: React.Dispatch<React.SetStateAction<boolean>>;
-  loading: boolean;
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-}
 
 export type carProps = {
   manufacturer: string;
@@ -128,6 +122,15 @@ export type DialogConformation = {
   title: string;
   subTitle: string;
   onConfirm?: ()=> void;
+}
+
+export type ThemeContextShape = {
+  dark: boolean;
+  setDark: React.Dispatch<React.SetStateAction<boolean>>;
+  loading: boolean;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  notify: NotifyData;
+  setNotify: React.Dispatch<React.SetStateAction<NotifyData>>;
 }
 
        

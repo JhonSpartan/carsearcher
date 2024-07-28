@@ -10,6 +10,8 @@ export default function ThemeContextProvider({ children }: {children: React.Reac
 
     const [dark, setDark] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
+    const [notify, setNotify] = useState({isOpen: false, message: '', type: ''});
+
 
     const { getItem } = useLocalStorage('value');
     const savedMode: boolean = getItem();
@@ -20,7 +22,7 @@ export default function ThemeContextProvider({ children }: {children: React.Reac
  
     return (
         <ThemeContext.Provider
-            value={{dark, setDark, loading, setLoading}}
+            value={{dark, setDark, loading, setLoading, notify, setNotify}}
         >
             {children}
         </ThemeContext.Provider>
