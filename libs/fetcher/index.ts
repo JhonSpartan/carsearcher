@@ -4,7 +4,7 @@ import axios from "axios";
 
 class AppFetcher {
 
-  private URL = '/'
+  private URL = 'carsearcher-proba.vercel.app'
 
 
   async getSearchOptions() {
