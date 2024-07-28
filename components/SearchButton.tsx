@@ -27,11 +27,9 @@ const isValidOtomotoCarURL = (url: string) => {
   return false;
 }
 
-// const SearchButton = (props: {options: Options}) => {
-const SearchButton = () => {
+const SearchButton = (props: {options: Options}) => {
 
-
-  // const { options } = props;
+  const { options } = props;
 
   const { loading, setLoading, setNotify } = useThemeContext();
 
@@ -47,94 +45,8 @@ const SearchButton = () => {
   
   let maxTime: Date;
 
-  const ManualSearch = (props: {options: Options}) => {
+  const handleOnclick = async () => {
 
-    const { options } = props;
-
-
-    const handleOnclick = async () => {
-
-      let i = 0
-      let DateCheck = true;
-      
-      do {
-        i++
-        const isValidLink = isValidOtomotoCarURL(`https://www.otomoto.pl/osobowe?page=${i}`);
-
-        if(!isValidLink) return alert('Please provide a valid Otomoto link')
-
-        try { 
-          setLoading(true);
-
-          const filteredCars: any = await scrapeAndCompareCar(`https://www.otomoto.pl/osobowe?page=${i}`);
-        
-          if (filteredCars.booleans.length === 0) {
-            DateCheck = false;
-          }
-
-          for (let car of filteredCars.cars) {
-            cars.push(car);
-          }
-
-          if(maxTime === undefined) {
-            maxTime = filteredCars.maxTime;
-          } else {
-            if (filteredCars.maxTime > maxTime) {
-              maxTime = filteredCars.maxTime;
-            }
-          }
-
-
-        } catch (error) {
-          console.log(error);
-        } finally {
-          setLoading(false);
-        }
-      }
-      while (DateCheck === true);
-
-      const results: SearchResults = {
-        cars: cars,
-        read: false
-      }
-
-      const graphData: number = cars.length;
-
-      if (cars.length > 0) {
-        createSearchResultsMutation.mutate(results);
-        createGraphDataMutation.mutate(graphData);
-        await addUserEmailToProduct(cars, email);
-      } else {
-        setNotify({
-          isOpen: true,
-          message: 'No cars found',
-          type: 'success'
-        });
-      }
-
-      if (maxTime) {
-        updateSearchOptionMutation.mutate({...options, date: maxTime})
-      }
-    }
-
-    return (
-      <>
-        <Button 
-          variant="contained"
-          type="button" 
-          size="large"
-          color="success"
-          onClick={handleOnclick}
-          sx={{mx: 'auto'}}
-        >
-          {loading ? <Box sx={{display: 'flex', alignItems: 'center'}}><CircularProgress size="1rem" sx={{mr: 2, color: '#ffffff'}} /> <Typography>Searching...</Typography></Box> : <Typography>Search</Typography>}
-        </Button> 
-        <Notification/>
-    </>
-    )
-  }
-
-  const AutoSearch = async (options: Options) => {
     let i = 0
     let DateCheck = true;
     
@@ -198,11 +110,22 @@ const SearchButton = () => {
     }
   }
 
-  return {
-    ManualSearch,
-    AutoSearch,
-  }
-  
+  return (
+    <>
+      <Button 
+        variant="contained"
+        type="button" 
+        size="large"
+        color="success"
+        onClick={handleOnclick}
+        sx={{mx: 'auto'}}
+      >
+        {loading ? <Box sx={{display: 'flex', alignItems: 'center'}}><CircularProgress size="1rem" sx={{mr: 2, color: '#ffffff'}} /> <Typography>Searching...</Typography></Box> : <Typography>Search</Typography>}
+      </Button> 
+      <Notification/>
+  </>
+  )
+
 }
 
 export default SearchButton
