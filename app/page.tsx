@@ -19,6 +19,8 @@ import { Options } from '@/types'
 
 const page = () => {
 
+  const { ManualSearch } = SearchButton();
+
   const { isLoading, error, data} = useSearchOptions();
 
   if (isLoading) return (
@@ -176,7 +178,7 @@ const page = () => {
               </ListItem>
               <Divider sx={{display: {xl: 'block', mobile: 'none', xs: 'block'}}}/>
               <ListItem sx={{gridRow: {xl: 'unset', tablet: 2, mobile: 3, xs: 'unset'}, gridColumn: {xl: 'unset', tablet: '1/4', mobile: '1/3', xs: 'unset'}}}>
-                <SearchButton 
+                <ManualSearch 
                   options={options}
                 />
               </ListItem>

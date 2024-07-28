@@ -30,7 +30,6 @@ export type OptionsShape = {
   options: Options
 }
 
-
 export type carProps = {
   manufacturer: string;
   model: string;
