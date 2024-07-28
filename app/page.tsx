@@ -19,7 +19,7 @@ import { Options } from '@/types'
 
 const page = () => {
 
-  const { isLoading, error, data} = useSearchOptions();
+  const { isLoading, error, data } = useSearchOptions();
 
   if (isLoading) return (
     <div>
@@ -29,11 +29,9 @@ const page = () => {
   )
   if (error) return <h1>{JSON.stringify(error)}</h1>
 
-
-  const { email, location, date } = data;
   const options: Options = data;
 
-  const transformedDate = moment(date).format('DD/MM/YYYY | HH:mm:ss');
+  const transformedDate = moment(options.date).format('DD/MM/YYYY | HH:mm:ss');
 
   return (
     <Box component="main"
@@ -79,7 +77,7 @@ const page = () => {
           >
             <Typography variant="h6" sx={{fontSize: {xs: 16, mobile: 14, lg: 16}, color: 'grey'}}>Current email</Typography>
             <Divider flexItem />
-            <Typography variant="h6" sx={{fontWeight: 'bold', fontSize: {xs: 18, mobile: 15, lg: 18}}}>{email}</Typography>
+            <Typography variant="h6" sx={{fontWeight: 'bold', fontSize: {xs: 18, mobile: 15, lg: 18}}}>{options.email}</Typography>
           </Box>
         </Paper>
         <Paper 
@@ -104,7 +102,7 @@ const page = () => {
           >
             <Typography variant="h6" sx={{fontSize: {xs: 16, mobile: 14, lg: 16}, color: 'grey'}}>Search location</Typography>
             <Divider flexItem />
-            <Typography variant="h6" sx={{fontWeight: 'bold', fontSize: {xs: 18, mobile: 15, lg: 18}}}>{location}</Typography>
+            <Typography variant="h6" sx={{fontWeight: 'bold', fontSize: {xs: 18, mobile: 15, lg: 18}}}>{options.location}</Typography>
           </Box>
         </Paper>
         <Paper 
