@@ -171,8 +171,8 @@ const EditForm = ({setOpenPopup, setNotify, car}: any) => {
               value={newTransmission}
               onChange={ (e) => setNewTransmission(e.target.value)}
             >
-              <FormControlLabel value="Manual" control={<Radio />} label="Manual" />
-              <FormControlLabel value="Automat" control={<Radio />} label="Automat" />
+              <FormControlLabel value="Manualna" control={<Radio />} label="Manualna" />
+              <FormControlLabel value="Automatyczna" control={<Radio />} label="Automatyczna" />
             </RadioGroup>
           </FormControl>
           <FormControl
