@@ -43,7 +43,7 @@ const SearchButton = (props: {options: Options}) => {
 
   let cars: SearchResult[] = [];
   
-  let maxTime: Date;
+  let maxTime: Date | undefined;
 
   const handleOnclick = async () => {
 
