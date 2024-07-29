@@ -1,3 +1,4 @@
+import { useThemeContext } from "@/libs/contexts/context";
 import SearchOptions from "@/libs/models/searchOptions.model";
 import { connectToDB } from "@/libs/mongoose";
 
@@ -28,6 +29,8 @@ export async function GET() {
     
       return false;
     }
+
+  const { setNotify } = useThemeContext();
 
   } catch (error) {
     throw new Error(`Error in GET: ${error}`)
