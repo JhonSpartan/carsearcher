@@ -2,6 +2,7 @@ import { scrapeAndCompareCar } from "@/libs/actions";
 import { useThemeContext } from "@/libs/contexts/context";
 import SearchOptions from "@/libs/models/searchOptions.model";
 import { connectToDB } from "@/libs/mongoose";
+import { SearchResult } from "@/types";
 
 export const dynamic = 'force-dynamic';
 
@@ -33,8 +34,8 @@ export async function GET() {
 
   const { setNotify, setLoading } = useThemeContext();
 
-  let cars: SearchResult[] = [];
-  
+  let cars: any = [];
+
   let maxTime: Date | undefined;
 
   let i = 0
