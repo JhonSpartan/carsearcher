@@ -4,6 +4,33 @@ import { connectToDB } from "@/libs/mongoose";
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
-  await connectToDB();
-  const searchoptions = await SearchOptions.find();
+  try{
+    await connectToDB();
+    const searchoptions = await SearchOptions.find();
+
+    if (!searchoptions)  throw new Error('No options found');
+
+    const isValidOtomotoCarURL = (url: string) => {
+      try {
+        const parsedURL = new URL(url);
+        const hostname = parsedURL.hostname;
+    
+        if(
+          hostname.includes('otomoto.pl') || 
+          hostname.includes ('otomoto.') || 
+          hostname.endsWith('otomoto')
+        ) {
+          return true;
+        }
+      } catch (error) {
+        return false;
+      }
+    
+      return false;
+    }
+
+  } catch (error) {
+    throw new Error(`Error in GET: ${error}`)
+  }
+  
 }
