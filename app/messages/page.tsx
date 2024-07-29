@@ -10,7 +10,7 @@ import ConfirmDialog from '@/components/ConfirmDialog';
 import Notification from '@/components/Notification';
 import FiberNewIcon from '@mui/icons-material/FiberNew';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import {  DialogConformation, GetSearchResults, SearchResult, SearchResults } from '@/types';
+import {  DialogConformation, SearchResult, SearchResults } from '@/types';
 import { useThemeContext } from '@/libs/contexts/context';
 
 
@@ -27,9 +27,9 @@ const messages = () => {
   const deleteCarMutation = useDeleteSearchResult(setNotify);
   const updateCarMutation = useUpdateSearchResult();
 
-
   const handleDeleteSearchResult = (id: string | undefined) => {
     deleteCarMutation.mutate(id!)
+    setExpanded(false);
     setConfirmDialog({
       ...confirmDialog,
       isOpen: false
@@ -53,7 +53,6 @@ const messages = () => {
   )
   if (error) return <h1>{JSON.stringify(error)}</h1>
   const results: SearchResults[] = data.searchresults;
-  console.log(results)
 
   return (
     <>
