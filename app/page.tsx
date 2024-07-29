@@ -29,7 +29,7 @@ const page = () => {
   )
   if (error) return <h1>{JSON.stringify(error)}</h1>
 
-  const options: Options = data;
+  const options: Options = data.searchoptions[0];
 
   const transformedDate = moment(options.date).format('DD/MM/YYYY | HH:mm:ss');
 

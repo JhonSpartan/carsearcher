@@ -10,7 +10,7 @@ import ConfirmDialog from '@/components/ConfirmDialog';
 import Notification from '@/components/Notification';
 import FiberNewIcon from '@mui/icons-material/FiberNew';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import {  DialogConformation, GetSearchResults, SearchResult } from '@/types';
+import {  DialogConformation, GetSearchResults, SearchResult, SearchResults } from '@/types';
 import { useThemeContext } from '@/libs/contexts/context';
 
 
@@ -28,15 +28,15 @@ const messages = () => {
   const updateCarMutation = useUpdateSearchResult();
 
 
-  const handleDeleteSearchResult = (id: string) => {
-    deleteCarMutation.mutate(id)
+  const handleDeleteSearchResult = (id: string | undefined) => {
+    deleteCarMutation.mutate(id!)
     setConfirmDialog({
       ...confirmDialog,
       isOpen: false
     });
   }
 
-  const handleChange = (panel: string, item: GetSearchResults) => (event: React.SyntheticEvent, newExpanded: boolean) => {
+  const handleChange = (panel: string, item: SearchResults) => (event: React.SyntheticEvent, newExpanded: boolean) => {
     setExpanded(newExpanded ? panel : false);
     if (item.read === false) {
       updateCarMutation.mutate({...item, read: true})
@@ -52,7 +52,8 @@ const messages = () => {
     </div>
   )
   if (error) return <h1>{JSON.stringify(error)}</h1>
-  const results = data.searchresults;
+  const results: SearchResults[] = data.searchresults;
+  console.log(results)
 
   return (
     <>
@@ -65,7 +66,7 @@ const messages = () => {
           mt: 15
         }} 
       >
-        {results.map((item: GetSearchResults, index: number) => (
+        {results.map((item: SearchResults, index: number) => (
           <Accordion 
             expanded={expanded === `panel${index}`} 
             onChange={handleChange(`panel${index}`, item)}

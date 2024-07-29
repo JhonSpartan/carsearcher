@@ -1,14 +1,14 @@
 
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import AppFetcher from '@/libs/fetcher';
-import { carEditProps, carProps, NotifyData, Options, SearchResults, SearchUpdateResults } from "@/types";
+import { carEditProps, carProps, NotifyData, Options, SearchResults } from "@/types";
 
 export const useSearchOptions = () => {
   return useQuery(
     ["searchOptions"],
     () => AppFetcher.getSearchOptions(),
     {
-      select: ({ data }) => data.searchoptions[0],
+      select: ({ data }) => data,
     }
   );
 }
@@ -186,7 +186,7 @@ export const useUpdateSearchResult = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (results: SearchUpdateResults) => AppFetcher.updateSearchResult(results),
+    mutationFn: (results: SearchResults) => AppFetcher.updateSearchResult(results),
     onSettled: async(_, error) => {
       if (error) {
         console.log(error);

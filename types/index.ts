@@ -85,12 +85,11 @@ export type SearchResult = {
 export type SearchResults = {
   cars: SearchResult[];
   read: boolean;
-}
+  _id?: string;
+  __v?: number;
+  createdAt?: string;
+  updatedAt?: string;
 
-export type SearchUpdateResults = {
-  cars: [SearchResult];
-  read: boolean;
-  _id: string;
 }
 
 export type GetSearchResults = {

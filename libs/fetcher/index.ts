@@ -1,4 +1,4 @@
-import { carEditProps, carProps, Options, SearchResults, SearchUpdateResults } from "@/types";
+import { carEditProps, carProps, Options, SearchResults } from "@/types";
 import axios from "axios";
 
 
@@ -44,7 +44,7 @@ class AppFetcher {
     await axios.post(`${this.URL}/api/searchResults`, results);
   }
 
-  async updateSearchResult(results: SearchUpdateResults) {
+  async updateSearchResult(results: SearchResults) {
     await axios.put(`${this.URL}/api/searchResults/${results._id}`, results); 
   }
 
