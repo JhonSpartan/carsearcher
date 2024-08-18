@@ -4,7 +4,7 @@ const URL = '';
 
 const ResultsCounter = async () => {
 
-  const mData = await fetch(`carsearcher-proba.vercel.app/api/searchResults`, {
+  const mData = await fetch(`/api/searchResults`, {
     cache: "no-cache",
     next: {
       tags: ["results"]

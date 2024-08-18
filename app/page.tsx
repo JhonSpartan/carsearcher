@@ -17,7 +17,7 @@ const URL = '';
 
 async function getOptions() {
 
-  const res = await fetch(`carsearcher-proba.vercel.app/api/searchOptions`, {
+  const res = await fetch(`/api/searchOptions`, {
     cache: "no-cache",
     next: {
       tags: ["options"]

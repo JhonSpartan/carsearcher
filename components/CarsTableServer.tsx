@@ -4,7 +4,7 @@ import CarsTableClient from "./CarsTableClient";
 const URL = '';
 
 async function getCars() {
-  const res = await fetch(`carsearcher-proba.vercel.app/api/cars`, {
+  const res = await fetch(`/api/cars`, {
     cache: "no-cache",
     next: {
       tags: ["cars"]
