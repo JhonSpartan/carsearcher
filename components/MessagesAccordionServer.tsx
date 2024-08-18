@@ -5,7 +5,7 @@ const URL = '';
 
 async function getResults() {
 
-  const res = await fetch(`/api/searchResults`, {
+  const res = await fetch(`api/searchResults`, {
     cache: "no-cache",
     next: {
       tags: ["results"]

@@ -5,7 +5,7 @@ const URL = '';
 
 async function getgraphdata() {
 
-  const res = await fetch(`/api/graphData`, {
+  const res = await fetch(`api/graphData`, {
     cache: "no-cache",
     next: {
       tags: ["graphData"]
