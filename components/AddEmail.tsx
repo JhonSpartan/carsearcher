@@ -2,25 +2,20 @@
 
 import { useState } from 'react'
 import { Box, Button, InputAdornment, TextField } from '@mui/material'
-import { useUpdateSearchOptions } from '@/libs/hooks'
 import EmailIcon from '@mui/icons-material/Email';
-import { OptionsShape } from '@/types';
+import { updateEmailAction } from '@/libs/services';
 
-const AddEmail = (props: OptionsShape) => {
-
-const { options } = props;
+const AddEmail = () => {
 
   const [email, setEmail] = useState('');
   const [shrink, setShrink] = useState(false);
 
-  const updateSearchOptionMutation = useUpdateSearchOptions()
-
   const handleUpdateEmail = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    updateSearchOptionMutation.mutate({...options, email: email})
+    updateEmailAction(email);
     setEmail('');
-    setShrink(false)
-  } 
+    setShrink(false);
+  }
 
   return (
       <Box component='form' sx={{display: 'flex', flexDirection: 'column', width: '100%'}} onSubmit={handleUpdateEmail}>

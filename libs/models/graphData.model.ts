@@ -6,5 +6,4 @@ const graphDatasSchema = new mongoose.Schema({
 
 const GraphData = mongoose.models.GraphData || mongoose.model('GraphData', graphDatasSchema);
 
-
 export default GraphData;

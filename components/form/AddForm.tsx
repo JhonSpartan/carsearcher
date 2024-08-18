@@ -1,8 +1,10 @@
-import { carDrives, carTypes, doorsCounts, fuels, generations, manufacturers, manufacturersAndModels, placesCounts, transmissions, yearsOfProduction } from '@/constants';
+"use client"
+
+import { carDrives, carTypes, doorsCounts, fuels, generations, manufacturers, manufacturersAndModels, placesCounts, yearsOfProduction } from '@/constants';
 import { useThemeContext } from '@/libs/contexts/context';
-import { useCreateCar } from '@/libs/hooks';
-import { carProps} from '@/types';
-import { Autocomplete, Box, Button, FormControl, FormControlLabel, FormLabel, Grid, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField } from '@mui/material';
+import { createCarAction } from '@/libs/services';
+import { CarShape} from '@/types';
+import { Autocomplete, Box, Button, FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField } from '@mui/material';
 import { useEffect, useState } from 'react'
 
 const AddForm = (props: {setOpenPopup: React.Dispatch<React.SetStateAction<boolean>>}) => {
@@ -38,7 +40,7 @@ const AddForm = (props: {setOpenPopup: React.Dispatch<React.SetStateAction<boole
   const uniqueKey = (`${manufacturer}${model}${fuelType}${yearOfProduction}${transmission}${carDrive}
   ${carType}${generation}${placesCount}${doorsCount}`).replace(/ /g, "");
 
-  const car: carProps = {
+  const car: CarShape = {
     manufacturer: manufacturer,
     model: model,
     fuelType: fuelType,
@@ -52,12 +54,15 @@ const AddForm = (props: {setOpenPopup: React.Dispatch<React.SetStateAction<boole
     uniqueKey: uniqueKey,
   }
 
-
-  const createCarMutation = useCreateCar(setNotify);
   const handleCreateCar = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    createCarMutation.mutate(car);
-    setOpenPopup(false)
+    createCarAction(car);
+    setOpenPopup(false);
+    setNotify({
+      isOpen: true,
+      message: 'New car successfully added',
+      type: 'success'
+    });
   } 
 
   return (

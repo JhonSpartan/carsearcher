@@ -6,8 +6,6 @@ import { scrapeOtomotoCar } from "../scraper";
 import { generateEmailBody, sendEmail } from "../nodemailer";
 import SearchOptions from "../models/searchOptions.model";
 import { SearchResult } from "@/types";
-import GraphData from "../models/graphData.model";
-
 
 export async function scrapeAndCompareCar(productUrl: string) {
   if(!productUrl) return;
@@ -26,7 +24,7 @@ export async function scrapeAndCompareCar(productUrl: string) {
 
     for (let car of scrapedCars!) {
       const carsBase = await Car.find({ manufacturer: car.manufacturer, model: car.model, fuelType: car.fuelType, transmission: car.transmission});
-      const newDate = new Date(car.time.replace(/lipca/gi, 'july'));
+      const newDate = new Date(car.time.replace(/sierpnia/gi, 'august'));
       const dateComparison = baseTime < newDate;
       if (dateComparison === true) {
         booleans.push(dateComparison);
@@ -60,15 +58,6 @@ export async function addUserEmailToProduct(cars: SearchResult[], userEmail: str
   try {   
     const emailContent = await generateEmailBody(cars, "WELCOME");
     await sendEmail(emailContent, [userEmail]);
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-export async function deleteFirstItem(id: string) {
-  try {
-    await connectToDB();
-    await GraphData.findByIdAndDelete(id);
   } catch (error) {
     console.log(error);
   }

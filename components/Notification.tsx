@@ -1,10 +1,9 @@
+"use client"
+
 import { Alert, IconButton, Snackbar } from "@mui/material"
 import CloseIcon from '@mui/icons-material/Close';
-import { NotifyData } from "@/types";
 import { useThemeContext } from "@/libs/contexts/context";
 
-
-// const Notification = ({ notify, setNotify }: {notify: NotifyData, setNotify: React.Dispatch<React.SetStateAction<NotifyData>>}) => {
 const Notification = () => {
 
   const { notify, setNotify } = useThemeContext();

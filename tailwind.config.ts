@@ -29,7 +29,8 @@ module.exports = {
         primary: {
           DEFAULT: "#E43030",
           "orange": "#D48D3B",
-          "green": "#3E9242"
+          "green": "#3E9242",
+          "blue": "#90caf8"
         },
         secondary: "#282828",
         "gray-200": "#EAECF0",
@@ -41,6 +42,7 @@ module.exports = {
         "white-100": "#F4F4F4",
         "white-200": "#EDF0F8",
         "black-100": "#3D4258",
+        "blue-950": "#90caf8",
         "neutral-black": "#23263B",
       },
       boxShadow: {

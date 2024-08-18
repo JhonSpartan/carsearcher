@@ -2,21 +2,13 @@
 
 import { locations } from "@/constants";
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
-import { useUpdateSearchOptions } from '@/libs/hooks';
-import { OptionsShape } from '@/types';
+import { updateLocationAction } from "@/libs/services";
 
-
-
-
-const SwitchLocation = ( props: OptionsShape ) => {
-
-  const { options } = props;
-
-  const updateSearchOptionMutation = useUpdateSearchOptions()
+const SwitchLocation = () => {
 
   const handleUpdateLocation = (event: SelectChangeEvent) => {
-    updateSearchOptionMutation.mutate({...options, location: event.target.value})
-  } 
+    updateLocationAction(event.target.value);
+  }
 
   return (
       <FormControl size="small" sx={{width: {tablet: '100%', mobile: '50%', xs: '100%'}, mx: {mobile: 'auto'}}}>

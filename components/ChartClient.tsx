@@ -1,27 +1,18 @@
 "use client"
 
-import { deleteFirstItem } from '@/libs/actions';
-import { useGetGraphData } from '@/libs/hooks';
-import { datasetShape, GetGraphData } from '@/types';
-import { LinearProgress } from '@mui/material';
+import { deleteFirstItem } from '@/libs/services';
+import { datasetShape, GraphDataShape } from '@/types';
 import { axisClasses } from '@mui/x-charts';
 import { BarChart } from '@mui/x-charts/BarChart';
 import moment from 'moment';
 
-const Chart = () => {
+const ChartClient = (props: {graphData: GraphDataShape[]}) => {
+
+  const { graphData } = props;
 
   let dataset: datasetShape[] = [];
 
-  const {isLoading, data} = useGetGraphData();
-  
-  if (isLoading) return (
-    <div>
-      <h1>Loading...</h1>
-      <LinearProgress />
-    </div>
-  )
-
-  const arrayForming = () => data.slice(-5).map((item: GetGraphData) => {
+  const arrayForming = () => graphData!.slice(-5).map((item: GraphDataShape) => {
     const dataItem = {
       carsFound: item.graphData,
       createdAt: moment(item.createdAt).format('DD/MM/YYYY | HH:mm:ss'), 
@@ -29,10 +20,12 @@ const Chart = () => {
     dataset.push(dataItem)
   })
 
-  if (data.length !== 0) arrayForming();
+  if (graphData!.length !== 0) {
+    arrayForming();
+  }
 
-  if (data.length > 5) {
-    deleteFirstItem(data[0]._id);
+  if (graphData!.length > 5) {
+    deleteFirstItem(graphData![0]._id);
   }
 
   const chartSetting = {
@@ -64,4 +57,4 @@ const Chart = () => {
   )
 }
 
-export default Chart
+export default ChartClient

@@ -1,10 +1,11 @@
 "use client"
+
 import { useThemeContext } from '@/libs/contexts/context'
-import { carProps, filterItemsFull } from '@/types'
+import { CarShape } from '@/types'
 import { Table, TableCell, TableHead, TablePagination, TableRow, TableSortLabel } from '@mui/material'
 import React, { useState } from 'react'
 
-const CarsTable = (headCells: { id: string, label: string }[], filterFn: any) => {
+const CarsTableFunctionality = (headCells: { id: string, label: string }[], filterFn: any) => {
 
   const pages = [5, 10, 20]
   const [page, setPage] = useState<number>(0);
@@ -66,7 +67,7 @@ const CarsTable = (headCells: { id: string, label: string }[], filterFn: any) =>
     setPage(0);
   }
 
-  const TblPagination = (props: filterItemsFull) => (
+  const TblPagination = (props: {cars: CarShape[]}) => (
     <TablePagination
       component='div'
       page={page}
@@ -104,7 +105,7 @@ const CarsTable = (headCells: { id: string, label: string }[], filterFn: any) =>
       return 0;
   }
 
-  const carsAfterPagingAndSorting = (cars: carProps[]) => {
+  const carsAfterPagingAndSorting = (cars: CarShape[]) => {
     return stableSort(filterFn.fn(cars), getComparator(order, orderBy))
         .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
   }
@@ -117,4 +118,4 @@ const CarsTable = (headCells: { id: string, label: string }[], filterFn: any) =>
   }
 }
 
-export default CarsTable
+export default CarsTableFunctionality

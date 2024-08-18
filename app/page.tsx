@@ -1,36 +1,33 @@
-"use client"
-
-import SearchButton from '@/components/SearchButton'
-import { Box, List, Paper, Typography, Divider, ListItem, LinearProgress } from '@mui/material'
+import SearchButton from '@/components/SearchButton';
+import { Box, List, Paper, Typography, Divider, ListItem, LinearProgress } from '@mui/material';
 import AccessTimeTwoToneIcon from '@mui/icons-material/AccessTimeTwoTone';
 import LocationOnTwoToneIcon from '@mui/icons-material/LocationOnTwoTone';
 import LocalPostOfficeTwoToneIcon from '@mui/icons-material/LocalPostOfficeTwoTone';
-import AddEmail from '@/components/AddEmail'
-import SwitchLocation from '@/components/SwitchLocation'
-import { useSearchOptions } from '@/libs/hooks'
-import moment from 'moment'
-import SearchDatePicker from '@/components/SearchDatePicker'
-import { LocalizationProvider } from '@mui/x-date-pickers'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import Notification from '@/components/Notification'
-import Chart from '@/components/Chart'
-import { Options } from '@/types'
+import AddEmail from '@/components/AddEmail';
+import SwitchLocation from '@/components/SwitchLocation';
+import moment from 'moment';
+import SearchDatePicker from '@/components/SearchDatePicker';
+import Notification from '@/components/Notification';
+import { Options } from '@/types';
+import { Suspense } from 'react';
+import TestButton from '@/components/TestButton';
+import ChartServer from '@/components/ChartServer';
 
+async function getOptions() {
+  const res = await fetch('http://localhost:3000/api/searchOptions', {
+    cache: "no-cache",
+    next: {
+      tags: ["options"]
+    }
+  });
+  const searchOptionsData = await res.json();
+  const options: Options = searchOptionsData.searchoptions[0];
+  return options;
+}
 
-const page = () => {
+const page = async () => {
 
-  const { isLoading, error, data } = useSearchOptions();
-
-  if (isLoading) return (
-    <div>
-      <h1>Loading...</h1>
-      <LinearProgress />
-    </div>
-  )
-  if (error) return <h1>{JSON.stringify(error)}</h1>
-
-  const options: Options = data.searchoptions[0];
-
+  const options = await getOptions();
   const transformedDate = moment(options.date).format('DD/MM/YYYY | HH:mm:ss');
 
   return (
@@ -154,29 +151,22 @@ const page = () => {
               }}
             >
               <ListItem sx={{gridRow: {xl: 'unset', mobile: 1, xs: 'unset'}, gridColumn: {xl: 'unset', mobile: 1, xs: 'unset'}}}>
-                <AddEmail 
-                  options={options}
-                />
+                <AddEmail />
               </ListItem>
               <Divider sx={{display: {xl: 'block', mobile: 'none', xs: 'block'}}}/>
               <ListItem sx={{gridRow: {xl: 'unset', tablet: 1, mobile: 2, xs: 'unset'}, gridColumn: {xl: 'unset', tablet: 2, mobile: '1/3', xs: 'unset'}}}>
-                <SwitchLocation 
-                  options={options}
-                />
+                <SwitchLocation />
               </ListItem>
               <Divider sx={{display: {xl: 'block', mobile: 'none', xs: 'block'}}}/>
               <ListItem sx={{gridRow: {xl: 'unset', mobile: 1, xs: 'unset'}, gridColumn: {xl: 'unset', tablet: 3, mobile: 2, xs: 'unset'}}}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <SearchDatePicker 
-                    options={options}
-                  />
-                </LocalizationProvider>
+                <SearchDatePicker />
               </ListItem>
               <Divider sx={{display: {xl: 'block', mobile: 'none', xs: 'block'}}}/>
               <ListItem sx={{gridRow: {xl: 'unset', tablet: 2, mobile: 3, xs: 'unset'}, gridColumn: {xl: 'unset', tablet: '1/4', mobile: '1/3', xs: 'unset'}}}>
                 <SearchButton
                   options={options}
                 />
+                <TestButton />
               </ListItem>
             </List>
           </Box>
@@ -188,7 +178,9 @@ const page = () => {
             gridRow:{xl: '2/3', mobile: '4/5'}, 
             maxHeight: {lg: '500px', sm: '450px', mobile: '400px'}, 
           }}>
-          <Chart />       
+          <Suspense fallback={<LinearProgress/>}>
+            <ChartServer  />   
+          </Suspense>
         </Paper>
       </Box>
       <Notification/>

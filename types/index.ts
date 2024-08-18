@@ -26,11 +26,7 @@ export type Options = {
   updatedAt: string | null | Date;
 }
 
-export type OptionsShape = {
-  options: Options
-}
-
-export type carProps = {
+export type CarShape = { 
   manufacturer: string;
   model: string;
   fuelType: string;
@@ -41,29 +37,11 @@ export type carProps = {
   generation: number | string;
   placesCount: number | string;
   doorsCount: number | string;
-  uniqueKey: string;
+  uniqueKey?: string;
   _id?: string;
   __v?: number;
   createdAt?: string;
   updatedAt?: string;
-}
-
-export type carEditProps = {
-  manufacturer: string;
-  model: string;
-  fuelType: string;
-  transmission: string;
-  yearOfProduction: string;
-  carDrive: string;  
-  carType: string;
-  generation: string;
-  placesCount: string;
-  doorsCount: string;
-  _id: string;
-}
-
-export type filterItemsFull = {
-  cars: carProps[]
 }
 
 export type SearchResult = {
@@ -82,7 +60,7 @@ export type SearchResult = {
   _id?: string;
 }
 
-export type SearchResults = {
+export type SearchResultsShape = {
   cars: SearchResult[];
   read: boolean;
   _id?: string;
@@ -92,21 +70,12 @@ export type SearchResults = {
 
 }
 
-export type GetSearchResults = {
-  cars: [SearchResult];
-  read: boolean;
-  createdAt: string;
-  updatedAt: string;
-  _id: string;
-  __v: number;
-}
-
-export type GetGraphData = {
+export type GraphDataShape = {
   graphData: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt?: Date;
   _id: string;
-  __v: number;
+  __v?: number;
 }
 
 export type NotifyData = {

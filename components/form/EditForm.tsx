@@ -1,9 +1,12 @@
-import { carDrives, carTypes, doorsCounts, fuels, generations, manufacturers, manufacturersAndModels, placesCounts, transmissions, yearsOfProduction } from '@/constants';
-import { useUpdateCar } from '@/libs/hooks';
+"use client"
+
+import { carDrives, carTypes, doorsCounts, fuels, generations, manufacturers, manufacturersAndModels, placesCounts, yearsOfProduction } from '@/constants';
+import { useThemeContext } from '@/libs/contexts/context';
+import { updateCarsAction } from '@/libs/services';
 import { Autocomplete, Box, Button, FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField } from '@mui/material';
 import { useEffect, useState, } from 'react'
 
-const EditForm = ({setOpenPopup, setNotify, car}: any) => {
+const EditForm = ({setOpenPopup, car, id}: any) => {
 
   const  { manufacturer, model, fuelType, transmission, yearOfProduction, carDrive, carType, generation, placesCount, doorsCount } = car;
   
@@ -19,6 +22,8 @@ const EditForm = ({setOpenPopup, setNotify, car}: any) => {
   const [newCarType, setNewCarType] = useState<string>(carType);
   const [newCarDrive, setNewCarDrive] = useState<string>(carDrive);
 
+  const { setNotify } = useThemeContext();
+
   useEffect(() => {
     for (let item of manufacturersAndModels) {
       if (newManufacturer !== '' && item.manufacturer == newManufacturer) {
@@ -30,16 +35,20 @@ const EditForm = ({setOpenPopup, setNotify, car}: any) => {
     }
   }, [newManufacturer]);
 
+  const newCar = {manufacturer: newManufacturer, model: newModel, fuelType: newFuelType, 
+    transmission: newTransmission, yearOfProduction: newYearOfProduction, carDrive: newCarDrive, 
+    carType: newCarType, generation: newGeneration, placesCount: newPlacesCount, doorsCount: newDoorsCount};
 
-  const updateCarMutation = useUpdateCar(setNotify);
+
   const handleEditCar = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    updateCarMutation.mutate({
-      ...car, manufacturer: newManufacturer, model: newModel, fuelType: newFuelType, 
-      transmission: newTransmission, yearOfProduction: newYearOfProduction, carDrive: newCarDrive, 
-      carType: newCarType, generation: newGeneration, placesCount: newPlacesCount, doorsCount: newDoorsCount
-    })
+    updateCarsAction(newCar, id);
     setOpenPopup();
+    setNotify({
+      isOpen: true,
+      message: 'Car successfully edited',
+      type: 'success'
+    });
   } 
 
   return (
@@ -178,7 +187,7 @@ const EditForm = ({setOpenPopup, setNotify, car}: any) => {
           <FormControl
               sx={{
                 width: '80%',
-                m: 1,
+                m: 1, 
                 mx: 'auto',
                 gridColumn: {mobile: 2, xs: 1},
                 gridRow: {mobile: 2, xs: 6},

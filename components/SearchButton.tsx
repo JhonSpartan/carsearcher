@@ -2,10 +2,10 @@
 
 import { addUserEmailToProduct, scrapeAndCompareCar } from '@/libs/actions';
 import { useThemeContext } from '@/libs/contexts/context';
-import { useCreateSearchResults, useSearchOptions, useUpdateSearchOptions, useCreateGraphData } from '@/libs/hooks';
-import { Options, SearchResult, SearchResults } from '@/types';
+import { Options, SearchResult, SearchResultsShape } from '@/types';
 import { Box, Button, CircularProgress, Typography } from '@mui/material';
 import Notification from './Notification';
+import { createGraphDataAction, createSearchResultsAction, updateDateAction } from '@/libs/services';
 
 
 const isValidOtomotoCarURL = (url: string) => {
@@ -31,24 +31,21 @@ const SearchButton = (props: {options: Options}) => {
 
   const { options } = props;
 
+  const { email } = options;
+
   const { loading, setLoading, setNotify } = useThemeContext();
-
-  const { data } = useSearchOptions();
-  const { email } = data;
-
-  const updateSearchOptionMutation = useUpdateSearchOptions();
-
-  const createSearchResultsMutation = useCreateSearchResults(setNotify);
-  const createGraphDataMutation = useCreateGraphData();
 
   let cars: SearchResult[] = [];
   
   let maxTime: Date | undefined;
 
+  let DateCheck = 0;
+
+
+
   const handleOnclick = async () => {
 
     let i = 0
-    let DateCheck = true;
     
     do {
       i++
@@ -60,10 +57,11 @@ const SearchButton = (props: {options: Options}) => {
         setLoading(true);
 
         const filteredCars: any = await scrapeAndCompareCar(`https://www.otomoto.pl/osobowe?page=${i}`);
-      
-        if (filteredCars.booleans.length === 0) {
-          DateCheck = false;
-        }
+
+
+        if (filteredCars.booleans.length === 0) DateCheck += 1;
+
+        if (filteredCars.booleans.length > 0 && DateCheck > 0) DateCheck = 0;
 
         for (let car of filteredCars.cars) {
           cars.push(car);
@@ -84,9 +82,13 @@ const SearchButton = (props: {options: Options}) => {
         setLoading(false);
       }
     }
-    while (DateCheck === true);
+    while (DateCheck < 5);
+    DateCheck = 0;
 
-    const results: SearchResults = {
+    console.log(DateCheck);
+
+
+    const results: SearchResultsShape = {
       cars: cars,
       read: false
     }
@@ -94,8 +96,8 @@ const SearchButton = (props: {options: Options}) => {
     const graphData: number = cars.length;
 
     if (cars.length > 0) {
-      createSearchResultsMutation.mutate(results);
-      createGraphDataMutation.mutate(graphData);
+      await createSearchResultsAction(results);
+      await createGraphDataAction(graphData);
       await addUserEmailToProduct(cars, email);
     } else {
       setNotify({
@@ -105,9 +107,8 @@ const SearchButton = (props: {options: Options}) => {
       });
     }
 
-    if (maxTime) {
-      updateSearchOptionMutation.mutate({...options, date: maxTime})
-    }
+    if (maxTime) await updateDateAction(maxTime); 
+    
   }
 
   return (
