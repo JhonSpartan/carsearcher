@@ -1,8 +1,11 @@
 import { SearchResultsShape } from '@/types';
 import MessagesAccordionClient from './MeassagesAccordionClient';
 
+const URL = '';
+
 async function getResults() {
-  const res = await fetch('http://localhost:3000/api/searchResults', {
+  
+  const res = await fetch(`${URL}/api/searchResults`, {
     cache: "no-cache",
     next: {
       tags: ["results"]

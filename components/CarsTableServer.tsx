@@ -1,8 +1,10 @@
 import { CarShape } from "@/types";
 import CarsTableClient from "./CarsTableClient";
 
+const URL = '';
+
 async function getCars() {
-  const res = await fetch('http://localhost:3000/api/cars', {
+  const res = await fetch(`${URL}/api/cars`, {
     cache: "no-cache",
     next: {
       tags: ["cars"]

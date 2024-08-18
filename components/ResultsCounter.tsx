@@ -1,8 +1,10 @@
 import { SearchResultsShape } from '@/types';
 
+const URL = '';
+
 const ResultsCounter = async () => {
 
-  const mData = await fetch('http://localhost:3000/api/searchResults', {
+  const mData = await fetch(`${URL}/api/searchResults`, {
     cache: "no-cache",
     next: {
       tags: ["results"]

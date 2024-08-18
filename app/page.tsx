@@ -13,8 +13,11 @@ import { Suspense } from 'react';
 import TestButton from '@/components/TestButton';
 import ChartServer from '@/components/ChartServer';
 
+const URL = '';
+
 async function getOptions() {
-  const res = await fetch('http://localhost:3000/api/searchOptions', {
+  
+  const res = await fetch(`${URL}/api/searchOptions`, {
     cache: "no-cache",
     next: {
       tags: ["options"]

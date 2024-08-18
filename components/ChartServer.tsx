@@ -1,8 +1,11 @@
 import { GraphDataShape } from '@/types';
 import ChartClient from './ChartClient';
 
+const URL = '';
+
 async function getgraphdata() {
-  const res = await fetch('http://localhost:3000/api/graphData', {
+  
+  const res = await fetch(`${URL}/api/graphData`, {
     cache: "no-cache",
     next: {
       tags: ["graphData"]
