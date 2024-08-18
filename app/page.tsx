@@ -16,8 +16,8 @@ import ChartServer from '@/components/ChartServer';
 const URL = '';
 
 async function getOptions() {
-  
-  const res = await fetch(`${URL}/api/searchOptions`, {
+
+  const res = await fetch(`carsearcher-proba.vercel.app/api/searchOptions`, {
     cache: "no-cache",
     next: {
       tags: ["options"]

@@ -4,8 +4,8 @@ import MessagesAccordionClient from './MeassagesAccordionClient';
 const URL = '';
 
 async function getResults() {
-  
-  const res = await fetch(`${URL}/api/searchResults`, {
+
+  const res = await fetch(`carsearcher-proba.vercel.app/api/searchResults`, {
     cache: "no-cache",
     next: {
       tags: ["results"]

@@ -4,8 +4,8 @@ import ChartClient from './ChartClient';
 const URL = '';
 
 async function getgraphdata() {
-  
-  const res = await fetch(`${URL}/api/graphData`, {
+
+  const res = await fetch(`carsearcher-proba.vercel.app/api/graphData`, {
     cache: "no-cache",
     next: {
       tags: ["graphData"]
