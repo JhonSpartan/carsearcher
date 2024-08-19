@@ -8,6 +8,7 @@ import SearchOptions from "../models/searchOptions.model";
 import { SearchResult } from "@/types";
 
 export async function scrapeAndCompareCar(productUrl: string) {
+  
   if(!productUrl) return;
 
   try {
