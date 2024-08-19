@@ -8,6 +8,7 @@ import SearchResults from "../models/searchResults.models";
 import Car from "../models/car.model";
 import { connectToDB } from "../mongoose";
 
+connectToDB();
 
 export async function createCarAction(car: CarShape) {
   try {   
@@ -60,7 +61,6 @@ export async function createSearchResultsAction(results: SearchResultsShape) {
 
 export async function updateSearchResultsAction(read: boolean, id: string | undefined) {
   try {   
-    await connectToDB();
     await SearchResults.findOneAndUpdate({_id: id }, {read: read});
     revalidateTag("results");
   } catch (error) {
@@ -70,7 +70,6 @@ export async function updateSearchResultsAction(read: boolean, id: string | unde
 
 export async function deleteSearchResultsAction(id: string | undefined) {
   try {   
-    await connectToDB();
     await SearchResults.findByIdAndDelete(id);
     revalidateTag("results");
   } catch (error) {
@@ -80,7 +79,6 @@ export async function deleteSearchResultsAction(id: string | undefined) {
 
 export async function updateLocationAction(loc: string) {
   try {   
-    await connectToDB();
     await SearchOptions.findOneAndUpdate({ }, {location: loc});
     revalidateTag("options");
   } catch (error) {
