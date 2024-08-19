@@ -70,6 +70,7 @@ export async function updateSearchResultsAction(read: boolean, id: string | unde
 
 export async function deleteSearchResultsAction(id: string | undefined) {
   try {   
+    await connectToDB();
     await SearchResults.findByIdAndDelete(id);
     revalidateTag("results");
   } catch (error) {
@@ -79,6 +80,7 @@ export async function deleteSearchResultsAction(id: string | undefined) {
 
 export async function updateLocationAction(loc: string) {
   try {   
+    await connectToDB();
     await SearchOptions.findOneAndUpdate({ }, {location: loc});
     revalidateTag("options");
   } catch (error) {
