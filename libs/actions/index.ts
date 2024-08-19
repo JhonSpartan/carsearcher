@@ -7,8 +7,8 @@ import { generateEmailBody, sendEmail } from "../nodemailer";
 import SearchOptions from "../models/searchOptions.model";
 import { SearchResult } from "@/types";
 
-export async function scrapeAndCompareCar(productUrl: string) {
-  
+export async function scrapeAndCompareCar(productUrl: string, location: string) {
+
   if(!productUrl) return;
 
   try {
@@ -21,7 +21,7 @@ export async function scrapeAndCompareCar(productUrl: string) {
     const date = await SearchOptions.find();
     const baseTime = date[0].date;
 
-    const scrapedCars = await scrapeOtomotoCar(productUrl);
+    const scrapedCars = await scrapeOtomotoCar(productUrl, location);
 
     for (let car of scrapedCars!) {
       const carsBase = await Car.find({ manufacturer: car.manufacturer, model: car.model, fuelType: car.fuelType, transmission: car.transmission});

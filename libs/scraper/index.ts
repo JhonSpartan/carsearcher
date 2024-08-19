@@ -1,10 +1,7 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
-import { connectToDB } from "../mongoose";
-import SearchOptions from '../models/searchOptions.model';
 
-
-export async function scrapeOtomotoCar(url: string) {
+export async function scrapeOtomotoCar(url: string, location: string) {
   if(!url) return;
 
   const username = String(process.env.BRIGHT_DATA_USERNAME);
@@ -20,13 +17,6 @@ export async function scrapeOtomotoCar(url: string) {
     port,
     rejectUnauthorized: false,
   }
-
-  await connectToDB();
-
-  const searchOptions = await SearchOptions.find();
-  const location = JSON.stringify(searchOptions[0].location);
-
-
 
   try {
     let response = await axios.get(url, options);

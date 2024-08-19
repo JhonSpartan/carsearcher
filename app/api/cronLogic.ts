@@ -33,7 +33,7 @@ export async function cronLogic() {
 
   const searchOptionsData = await res.json();
   const options: Options = searchOptionsData.searchoptions[0];
-  const { email } = options;
+  const { email, location } = options;
 
   let cars: any = [];
 
@@ -52,7 +52,7 @@ export async function cronLogic() {
 
       try { 
 
-        const filteredCars: any = await scrapeAndCompareCar(`https://www.otomoto.pl/osobowe?page=${i}`);
+        const filteredCars: any = await scrapeAndCompareCar(`https://www.otomoto.pl/osobowe?page=${i}`, location);
         console.log(filteredCars.booleans)
       
 

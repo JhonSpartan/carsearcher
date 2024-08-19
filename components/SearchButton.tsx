@@ -31,7 +31,7 @@ const SearchButton = (props: {options: Options}) => {
 
   const { options } = props;
 
-  const { email } = options;
+  const { email, location } = options;
 
   const { loading, setLoading, setNotify } = useThemeContext();
 
@@ -56,7 +56,7 @@ const SearchButton = (props: {options: Options}) => {
       try { 
         setLoading(true);
 
-        const filteredCars: any = await scrapeAndCompareCar(`https://www.otomoto.pl/osobowe?page=${i}`);
+        const filteredCars: any = await scrapeAndCompareCar(`https://www.otomoto.pl/osobowe?page=${i}`, location);
 
 
         if (filteredCars.booleans.length === 0) DateCheck += 1;
