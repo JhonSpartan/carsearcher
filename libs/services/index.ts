@@ -60,7 +60,7 @@ export async function createSearchResultsAction(results: SearchResultsShape) {
 
 export async function updateSearchResultsAction(read: boolean, id: string | undefined) {
   try {   
-    console.log(id)
+    await connectToDB();
     await SearchResults.findOneAndUpdate({_id: id }, {read: read});
     revalidateTag("results");
   } catch (error) {
